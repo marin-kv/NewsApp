@@ -21,12 +21,12 @@ public partial class NewsDbContext : IdentityDbContext<User, IdentityRole<int>, 
     public virtual DbSet<Author> Authors { get; set; }
 
     // To use local SQL Server DB
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=NewsDB;TrustServerCertificate=True;Trusted_Connection=true");
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=NewsDB;TrustServerCertificate=True;Trusted_Connection=true");
 
     // To use in-memory DB
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //    => optionsBuilder.UseInMemoryDatabase("NewsDB");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseInMemoryDatabase("NewsDB");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Article>(entity =>
