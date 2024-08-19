@@ -2,15 +2,17 @@
 using Microsoft.AspNetCore.Mvc;
 using NewsApp.Models;
 using NewsApp.Repositories;
+using System.Security.Claims;
 
 namespace NewsApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class ArticlesController(IArticlesRepository articlesRepository) : ControllerBase
+    public class ArticlesController(IArticlesRepository articlesRepository, IHttpContextAccessor httpContextAccessor) : ControllerBase
     {
         private readonly IArticlesRepository _articlesRepository = articlesRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
         [HttpGet]
         [Route("{id:int}")]
@@ -45,6 +47,12 @@ namespace NewsApp.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateArticle(Article article)
         {
+            var userIdString = _httpContextAccessor.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+            var userId = int.Parse(userIdString);
+            if (!await _articlesRepository.CanUserModifyArticle(userId, article.Id))
+            {
+                return Forbid();
+            }
             await _articlesRepository.UpdateArticle(article);
             return Ok();
         }
@@ -53,6 +61,12 @@ namespace NewsApp.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> DeleteArticle([FromRoute] int id)
         {
+            var userIdString = _httpContextAccessor.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+            var userId = int.Parse(userIdString);
+            if (!await _articlesRepository.CanUserModifyArticle(userId, id))
+            {
+                return Forbid();
+            }
             await _articlesRepository.DeleteArticle(id);
             return Ok();
         }

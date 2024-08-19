@@ -11,5 +11,6 @@ namespace NewsApp.Repositories
         Task<int> CreateArticle(Article article);
         Task UpdateArticle(Article article);
         Task DeleteArticle(int id);
+        Task<bool> CanUserModifyArticle(int userId, int articleId);
     }
 }

@@ -1,4 +1,4 @@
-using NewsApp;
+using NewsApp.Database;
 using NewsApp.Models;
 using NewsApp.Repositories;
 using NewsApp.Repositories.Implementation;
