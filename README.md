@@ -3,7 +3,7 @@ Example backend API for a news app.
 Written using .NET 8.
 
 Simplified DB diagram:
-![NewsDB_trimmed_diagram](https://github.com/user-attachments/assets/aa733177-c552-4f8d-b19b-c5bc9e9655e7)
+![file](https://github.com/user-attachments/assets/d64ead8c-5538-46a4-ab67-84538e615b0a)
 
 Potential further improvements:
 - add logout functionality
