@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsApp.Database;
-using NewsApp.Models;
+using NewsApp.Models.DB;
 
 namespace NewsApp.Repositories.Implementation
 {

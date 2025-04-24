@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace NewsApp.Models;
+namespace NewsApp.Models.DB;
 
 public partial class User : IdentityUser<int>
 {

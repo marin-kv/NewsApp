@@ -1,4 +1,4 @@
-﻿using NewsApp.Models;
+﻿using NewsApp.Models.DB;
 
 namespace NewsApp.Repositories
 {

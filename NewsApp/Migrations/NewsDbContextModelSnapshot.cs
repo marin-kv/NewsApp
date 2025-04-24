@@ -158,7 +158,10 @@ namespace NewsApp.Migrations
             modelBuilder.Entity("NewsApp.Models.Article", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
@@ -173,7 +176,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id")
-                        .HasName("PK__Articles__9C6270E8139F4505");
+                        .HasName("PK_Articles");
 
                     b.HasIndex("AuthorId");
 
@@ -183,7 +186,10 @@ namespace NewsApp.Migrations
             modelBuilder.Entity("NewsApp.Models.Author", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("About")
                         .IsRequired()
@@ -203,7 +209,7 @@ namespace NewsApp.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id")
-                        .HasName("PK__Authors__70DAFC34ECB8D73D");
+                        .HasName("PK_Authors");
 
                     b.HasIndex("UserId")
                         .IsUnique();

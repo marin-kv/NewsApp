@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NewsApp.Models;
+namespace NewsApp.Models.DB;
 
 public partial class Author
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using NewsApp.Models;
+using NewsApp.Models.DB;
 
 namespace NewsApp.Database;
 
@@ -16,9 +16,9 @@ public partial class NewsDbContext : IdentityDbContext<User, IdentityRole<int>, 
     {
     }
 
-    public virtual DbSet<Article> Articles { get; set; }
+    public virtual DbSet<Article> Articles { get; set; } = null!;
 
-    public virtual DbSet<Author> Authors { get; set; }
+    public virtual DbSet<Author> Authors { get; set; } = null!;
 
     // To use local SQL Server DB
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,9 +31,8 @@ public partial class NewsDbContext : IdentityDbContext<User, IdentityRole<int>, 
     {
         modelBuilder.Entity<Article>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Articles__9C6270E8139F4505");
+            entity.HasKey(e => e.Id).HasName("PK_Articles");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Title).HasMaxLength(500);
 
             entity.HasOne<Author>().WithMany()
@@ -44,9 +43,8 @@ public partial class NewsDbContext : IdentityDbContext<User, IdentityRole<int>, 
 
         modelBuilder.Entity<Author>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Authors__70DAFC34ECB8D73D");
+            entity.HasKey(e => e.Id).HasName("PK_Authors");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);
 
