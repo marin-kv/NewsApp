@@ -15,17 +15,17 @@ namespace NewsApp.Repositories.Implementation
 
         public async Task<IEnumerable<Article>> GetArticles(int page, int pageSize)
         {
-            return await _context.Articles.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            return await _context.Articles.AsNoTracking().Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
 
         public async Task<IEnumerable<Article>> GetArticlesForAuthor(int authorId, int page, int pageSize)
         {
-            return await _context.Articles.Where(a => a.AuthorId == authorId).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            return await _context.Articles.AsNoTracking().Where(a => a.AuthorId == authorId).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
 
         public async Task<IEnumerable<Article>> SearchArticlesByTitle(string searchTerm, int page, int pageSize)
         {
-            return await _context.Articles.Where(a => a.Title.Contains(searchTerm)).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            return await _context.Articles.AsNoTracking().Where(a => a.Title.Contains(searchTerm)).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
 
         public async Task<int> CreateArticle(Article article)

@@ -2,9 +2,9 @@
 
 public class CreateArticleDto : ArticleDtoBase
 {
-    public DB.Article ToEntity() => new()
+    public DB.Article ToEntity(int authorId) => new()
     {
-        AuthorId = AuthorId,
+        AuthorId = authorId,
         Title = Title,
         Content = Content
     };

@@ -10,12 +10,12 @@ namespace NewsApp.Repositories.Implementation
 
         public async Task<Author?> GetAuthor(int id)
         {
-            return await _context.Authors.SingleOrDefaultAsync(a => a.Id == id);
+            return await _context.Authors.AsNoTracking().SingleOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<Author?> GetAuthorByUserId(int userId)
         {
-            return await _context.Authors.SingleOrDefaultAsync(a => a.UserId == userId);
+            return await _context.Authors.AsNoTracking().SingleOrDefaultAsync(a => a.UserId == userId);
         }
 
         public async Task<int> CreateAuthor(Author author)
@@ -44,7 +44,7 @@ namespace NewsApp.Repositories.Implementation
 
         public async Task<bool> IsUserAuthor(int userId, int authorId)
         {
-            return await _context.Authors.AnyAsync(a => a.Id == authorId && a.UserId == userId);
+            return await _context.Authors.AsNoTracking().AnyAsync(a => a.Id == authorId && a.UserId == userId);
         }
     }
 }

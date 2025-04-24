@@ -12,9 +12,10 @@ namespace NewsApp.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class ArticlesController(IArticlesRepository articlesRepository) : ControllerBase
+    public class ArticlesController(IArticlesRepository articlesRepository, IAuthorsRepository authorsRepository) : ControllerBase
     {
         private readonly IArticlesRepository _articlesRepository = articlesRepository;
+        private readonly IAuthorsRepository _authorsRepository = authorsRepository;
 
         [HttpGet]
         [Route("{id:int}")]
@@ -54,7 +55,16 @@ namespace NewsApp.Controllers
         [Authorize]
         public async Task<IActionResult> CreateArticle(CreateArticleDto article)
         {
-            var articleEntity = article.ToEntity(); 
+            var userIdString = HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+            var userId = int.Parse(userIdString);
+            var author = await _authorsRepository.GetAuthorByUserId(userId);
+
+            if (author is null)
+            {
+                throw new BadRequestException("You are not an author");
+            }
+
+            var articleEntity = article.ToEntity(author.Id); 
             var articleId = await _articlesRepository.CreateArticle(articleEntity);
             return Ok(articleId);
         }
